@@ -84,17 +84,13 @@ export default function Home() {
           <div className="flex gap-4 justify-center">
             <button
               onClick={shuffleConnections}
-              className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold 
-                       hover:bg-purple-700 transform hover:scale-105 transition-all duration-200
-                       shadow-lg hover:shadow-xl"
+              className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               🎲 Shuffle
             </button>
             <button
               onClick={sortConnections}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold 
-                       hover:bg-blue-700 transform hover:scale-105 transition-all duration-200
-                       shadow-lg hover:shadow-xl"
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               ✨ Sort A-Z
             </button>
