@@ -1,103 +1,149 @@
-import Image from "next/image";
+'use client'
+
+import { useState, useEffect } from 'react'
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [connections, setConnections] = useState<string[]>([])
+  const [sorted, setSorted] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const people = [
+    "Alice 👩‍💼", "Bob 👨‍💻", "Charlie 🎨", "Diana 🎸", 
+    "Ethan 📚", "Fiona 🏃‍♀️", "George 🍕", "Hannah ✈️",
+    "Ian 🎮", "Julia 📸", "Kevin 🎭", "Luna 🌙"
+  ]
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  const shuffleConnections = () => {
+    setSorted(false)
+    const shuffled = [...people].sort(() => Math.random() - 0.5)
+    setConnections(shuffled)
+  }
+
+  const sortConnections = () => {
+    setSorted(true)
+    const sorted = [...connections].sort()
+    setConnections(sorted)
+  }
+
+  useEffect(() => {
+    shuffleConnections()
+  }, [])
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 overflow-hidden relative">
+      {/* Animated background */}
+      <div 
+        className="absolute inset-0 opacity-20"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.1) 0%, transparent 50%)`
+        }}
+      />
+      
+      {/* Floating orbs */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
+      <div className="absolute top-40 right-20 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
+      <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" />
+
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen p-8">
+        <div className="text-center mb-12">
+          <h1 className="text-6xl font-bold text-white mb-4 animate-fade-in">
+            Connection Sorter 🌐
+          </h1>
+          <p className="text-xl text-gray-200 animate-fade-in animation-delay-200">
+            Because even your social network needs organization!
+          </p>
         </div>
+
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 shadow-2xl max-w-2xl w-full animate-fade-in animation-delay-400">
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {connections.map((person, index) => (
+              <div
+                key={person}
+                className={`
+                  bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center text-white
+                  transform transition-all duration-500 hover:scale-105 hover:bg-white/30
+                  ${sorted ? 'animate-slide-in' : 'animate-bounce-in'}
+                `}
+                style={{
+                  animationDelay: `${index * 50}ms`
+                }}
+              >
+                {person}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={shuffleConnections}
+              className="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold 
+                       hover:bg-purple-700 transform hover:scale-105 transition-all duration-200
+                       shadow-lg hover:shadow-xl"
+            >
+              🎲 Shuffle
+            </button>
+            <button
+              onClick={sortConnections}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold 
+                       hover:bg-blue-700 transform hover:scale-105 transition-all duration-200
+                       shadow-lg hover:shadow-xl"
+            >
+              ✨ Sort A-Z
+            </button>
+          </div>
+        </div>
+
+        <p className="text-gray-300 mt-8 text-sm animate-fade-in animation-delay-600">
+          Coming soon: Sort by vibes, energy levels, and coffee preferences ☕
+        </p>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      <style jsx>{`
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce-in {
+          0% { opacity: 0; transform: scale(0.3); }
+          50% { transform: scale(1.05); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slide-in {
+          from { opacity: 0; transform: translateX(-20px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+        .animate-bounce-in {
+          animation: bounce-in 0.6s ease-out forwards;
+        }
+        .animate-slide-in {
+          animation: slide-in 0.4s ease-out forwards;
+        }
+        .animation-delay-200 { animation-delay: 200ms; }
+        .animation-delay-400 { animation-delay: 400ms; }
+        .animation-delay-600 { animation-delay: 600ms; }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+      `}</style>
     </div>
-  );
+  )
 }
