@@ -1,6 +1,6 @@
-# Connection Sorter 🎭
+# Connection Sorter 👥
 
-A playful, interactive web application that helps you "organize" your social connections with style. Because even your social network needs organization!
+A fast, keyboard-driven web application for sorting LinkedIn connections into known and unknown contacts. Perfect for cleaning up your professional network!
 
 ![Next.js](https://img.shields.io/badge/Next.js-15.4.5-black)
 ![React](https://img.shields.io/badge/React-19.1.0-blue)
@@ -9,15 +9,17 @@ A playful, interactive web application that helps you "organize" your social con
 
 ## Overview
 
-Connection Sorter is a fun, animated demo application that displays a list of fictional people (represented by emojis) and allows users to shuffle or sort them alphabetically. Built with the latest web technologies, it features smooth animations and an interactive mouse-following background effect.
+Connection Sorter is a wizard-style application that helps you quickly sort through your LinkedIn connections CSV export. It presents each connection one at a time, allowing you to categorize them as "known" or "unknown" using simple keyboard shortcuts. Once sorted, you can download a CSV of your known contacts for further organization.
 
 ## Features
 
-- 🔀 **Shuffle Connections**: Randomize your connection list with a single click
-- 🔤 **Sort A-Z**: Organize connections alphabetically
-- ✨ **Interactive Background**: Animated gradient that follows your mouse movements
-- 🎨 **Smooth Animations**: Polished UI transitions and hover effects
-- 📱 **Fully Responsive**: Works beautifully on all device sizes
+- 📤 **CSV Upload**: Drag & drop or click to upload LinkedIn connections export
+- ⌨️ **Keyboard Shortcuts**: Quick sorting with number keys (1 = Know, 2 = Don't Know, 3 = Skip)
+- 👤 **One-at-a-Time Display**: Clear presentation of each contact's name and company
+- 📊 **Progress Tracking**: Real-time progress bar and counters for known/unknown/skipped
+- ↩️ **Undo Function**: Go back to previous contacts with left arrow key
+- 💾 **Export Results**: Download CSV of known contacts when done
+- 🎯 **Auto-Detection**: Automatically finds First Name, Last Name, and Company columns
 
 ## Tech Stack
 

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Connection Analyzer",
-  description: "Analyze your professional network connections by company",
+  title: "Connection Sorter",
+  description: "Quickly sort your LinkedIn connections into known and unknown contacts",
 };
 
 export default function RootLayout({

@@ -376,7 +376,7 @@ export default function ConnectionSorter() {
                 className="bg-red-600 hover:bg-red-700 text-white rounded-lg py-6 text-xl font-semibold transition-colors flex items-center justify-center gap-3"
               >
                 <span className="text-3xl">2</span>
-                <span>I Don't Know Them</span>
+                <span>I Don&apos;t Know Them</span>
               </button>
             </div>
 
